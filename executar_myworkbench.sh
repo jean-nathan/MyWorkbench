@@ -1,38 +1,44 @@
 #!/bin/bash
 
+set -e  # Abortar imediatamente se um comando falhar
+
+# Diretório de logs
+LOG_DIR="logs"
+mkdir -p "$LOG_DIR"
+
+# Função para registrar mensagens no log
+log() {
+    local timestamp
+    timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+    echo "[$timestamp] $1" >> "$LOG_DIR/myworkbench.log"
+}
+
 # Verificar se o ambiente virtual está ativado
 if [ -z "$VIRTUAL_ENV" ]; then
-    echo "Criando e ativando ambiente virtual..."
-    
+    log "Criando e ativando ambiente virtual..."
+
     # Verificar e instalar python3-venv se necessário
     if ! command -v python3-venv &> /dev/null; then
-        echo "Instalando python3-venv..."
-        sudo apt-get update
-        sudo apt-get install -y python3-venv
+        log "Instalando python3-venv..."
+        sudo apt-get update >> "$LOG_DIR/apt_update.log"  # Logar saída do apt-get update
+        sudo apt-get install -y python3-venv >> "$LOG_DIR/python3-venv_install.log"  # Logar saída do apt-get install
     fi
-    
+
     # Criar e ativar o ambiente virtual
     python3 -m venv myenv
     source myenv/bin/activate
 fi
 
-# Verificar e instalar dependências necessárias
-if ! command -v python3 &> /dev/null; then
-    echo "Python3 não encontrado. Instalando Python..."
-    sudo apt-get update
-    sudo apt-get install -y python3
-fi
-
+# Verificar e instalar dependências necessárias dentro do ambiente virtual
 if ! command -v pip &> /dev/null; then
-    echo "pip não encontrado. Instalando pip..."
-    sudo apt-get install -y python3-pip
+    log "pip não encontrado. Instalando pip..."
+    python3 -m ensurepip --upgrade >> "$LOG_DIR/ensurepip.log"  # Logar saída do ensurepip
 fi
 
-# Instalar as dependências necessárias no ambiente virtual
-echo "Instalando dependências..."
-source myenv/bin/activate  # Ativar o ambiente virtual antes de instalar as dependências
-pip install mysql-connector-python pandas
+# Instalar ou atualizar as dependências
+log "Instalando/atualizando dependências..."
+pip install --upgrade mysql-connector-python pandas >> "$LOG_DIR/pip_install.log"  # Logar saída do pip install
 
-# Executar o script Python
-echo "Executando MyWorkbench..."
-python3 MyWorkbench.py
+# Executar o script Python dentro do ambiente virtual
+log "Executando MyWorkbench..."
+python3 MyWorkbench.py >> "$LOG_DIR/myworkbench_execution.log"  # Logar saída do script Python

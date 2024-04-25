@@ -1,6 +1,4 @@
-# Utilizando MyWorkbench
-
-Este é um guia passo a passo para configurar e executar o script `MyWorkbench.py`, uma aplicação de consulta e salvamento de dados em um banco de dados MySQL, usando o script de instalação `executar_myworkbench.sh`.
+Este é um guia passo a passo para configurar e executar o script `MyWorkbench.py`, uma aplicação de consulta e salvamento de dados em um banco de dados MySQL.
 
 ## Pré-requisitos
 
@@ -27,7 +25,15 @@ Antes de começar, certifique-se de ter os seguintes pré-requisitos instalados 
    cd MyWorkbench
    ```
 
-3. **Execute o script de instalação**
+3. **Permissões de execução**
+
+   Antes de executar o script `executar_myworkbench.sh`, certifique-se de que ele possui permissões de execução:
+
+   ```bash
+   chmod +x executar_myworkbench.sh
+   ```
+
+4. **Execute o script de instalação**
 
    Execute o script `executar_myworkbench.sh` para configurar o ambiente e iniciar o `MyWorkbench`:
 
@@ -36,12 +42,12 @@ Antes de começar, certifique-se de ter os seguintes pré-requisitos instalados 
    ```
 
    Este script realizará as seguintes etapas:
-   - Verificar se o ambiente virtual está ativado. Se não estiver, ele será criado e ativado automaticamente.
-   - Verificar e instalar o Python3 e o `pip` se não estiverem instalados.
-   - Instalar as dependências necessárias (`mysql-connector-python`, `pandas`).
-   - Executar o script `MyWorkbench.py` dentro do ambiente virtual.
+   - Verificará se o ambiente virtual está ativado. Se não estiver, será criado e ativado automaticamente.
+   - Verificará e instalará o Python3 e o `pip` se não estiverem instalados.
+   - Instalará as dependências necessárias (`mysql-connector-python`, `pandas`).
+   - Executará o script `MyWorkbench.py` dentro do ambiente virtual.
 
-4. **Interagindo com MyWorkbench**
+5. **Interagindo com MyWorkbench**
 
    Após a execução bem-sucedida do script `executar_myworkbench.sh`, o `MyWorkbench` estará pronto para uso. Você pode iniciar o `MyWorkbench` sempre que necessário executando:
 
@@ -51,12 +57,13 @@ Antes de começar, certifique-se de ter os seguintes pré-requisitos instalados 
 
    Isso ativará automaticamente o ambiente virtual, instalará as dependências e iniciará o `MyWorkbench.py`.
 
-5. **Imagens**
+## Capturas de tela
 
-   **Configuração Conexão:**
+### Configuração de Conexão:
 
-   <img width="535" alt="image" src="https://github.com/jean-nathan/MyWorkbench/assets/118441482/773429ac-1696-4e46-bef9-f605cc700651">
+<img width="535" alt="Configuração de Conexão" src="assets/configuracao_conexao.png">
 
-   **Consulta Dados:**
+### Consulta de Dados:
 
-   <img width="536" alt="image" src="https://github.com/jean-nathan/MyWorkbench/assets/118441482/fe41ae89-8485-46ef-b598-4e7bde67bca2">
+<img width="536" alt="Consulta de Dados" src="assets/consulta_dados.png">
+```

@@ -50,3 +50,13 @@ Antes de começar, certifique-se de ter os seguintes pré-requisitos instalados 
    ```
 
    Isso ativará automaticamente o ambiente virtual, instalará as dependências e iniciará o `MyWorkbench.py`.
+
+5. **Imagens**
+
+   **Configuração Conexão:**
+
+   <img width="535" alt="image" src="https://github.com/jean-nathan/MyWorkbench/assets/118441482/773429ac-1696-4e46-bef9-f605cc700651">
+
+   **Consulta Dados:**
+
+   <img width="536" alt="image" src="https://github.com/jean-nathan/MyWorkbench/assets/118441482/fe41ae89-8485-46ef-b598-4e7bde67bca2">

@@ -17,11 +17,20 @@ log() {
 if [ -z "$VIRTUAL_ENV" ]; then
     log "Criando e ativando ambiente virtual..."
 
-    # Verificar e instalar python3-venv se necessário
-    if ! command -v python3-venv &> /dev/null; then
+    # Verificar e instalar python3-venv se necessário (Linux)
+    if command -v apt-get &> /dev/null; then
         log "Instalando python3-venv..."
         sudo apt-get update >> "$LOG_DIR/apt_update.log"  # Logar saída do apt-get update
         sudo apt-get install -y python3-venv >> "$LOG_DIR/python3-venv_install.log"  # Logar saída do apt-get install
+
+    # Verificar e instalar python3-venv se necessário (macOS)
+    elif command -v brew &> /dev/null; then
+        log "Instalando python3-venv..."
+        brew install python3 >> "$LOG_DIR/brew_install.log"  # Logar saída do brew install
+
+    else
+        log "Gerenciador de pacotes não suportado. Instale manualmente python3-venv."
+        exit 1
     fi
 
     # Criar e ativar o ambiente virtual

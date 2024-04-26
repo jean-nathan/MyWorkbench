@@ -36,7 +36,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         source myenv/bin/activate
     fi
 
-    # Verificar e instalar dependências necessárias dentro do ambiente virtual
+    # Verificar e instalar pip se necessário
     if ! command -v pip &> /dev/null; then
         log "pip não encontrado. Instalando pip..."
         # Instalar pip manualmente
@@ -45,7 +45,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     # Instalar ou atualizar as dependências
     log "Instalando/atualizando dependências..."
-    pip install --upgrade mysql-connector-python pandas >> "$LOG_DIR/pip_install.log"  # Logar saída do pip install
+    pip install --upgrade mysql-connector-python pandas openpyxl >> "$LOG_DIR/pip_install.log"  # Logar saída do pip install
 
     # Executar o script Python dentro do ambiente virtual
     log "Executando MyWorkbench..."

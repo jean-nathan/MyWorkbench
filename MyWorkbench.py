@@ -1,10 +1,12 @@
 import mysql.connector
 import pandas as pd
+import datetime 
 from tkinter import Tk, ttk, StringVar, messagebox, filedialog, Text, Label, DISABLED, NORMAL, OptionMenu
 import configparser
 import threading
 import time
 import os
+
 
 class DatabaseApp:
     def __init__(self, root):
@@ -283,18 +285,26 @@ class DatabaseApp:
                 df.to_excel(filename, index=False)
             elif save_option == "Salvar como INSERT":
                 with open(filename, 'w') as f:
-                    table_name = "<table_name>"  # Replace with your actual table name
+                    table_name = "<table_name>"  
                     columns = ', '.join(self.column_names)
                     for record in self.result_data:
-                        values = ', '.join(f"'{value}'" if isinstance(value, str) else str(value) for value in record)
-                        sql_insert = f"INSERT INTO {table_name} ({columns}) VALUES ({values});\n"
-                        f.write(sql_insert)
-
+                                formatted_values = []
+                                for value in record:
+                                    if value is None:
+                                        formatted_values.append('NULL')
+                                    elif isinstance(value, str):
+                                        formatted_values.append(f"'{value}'")
+                                    elif isinstance(value, datetime.datetime):
+                                        formatted_values.append(f"'{value.strftime('%Y-%m-%d %H:%M:%S')}'")
+                                    else:
+                                        formatted_values.append(str(value))
+                                values = ', '.join(formatted_values)
+                                sql_insert = f"INSERT INTO {table_name} ({columns}) VALUES ({values});\n"
+                                f.write(sql_insert)
             messagebox.showinfo("Salvo!", f"Dados salvos em '{filename}'.")
         except Exception as e:
             messagebox.showerror("Erro ao Salvar", f"Ocorreu um erro ao salvar os dados: {e}")
 
-# Main block
 if __name__ == "__main__":
     root = Tk()
     app = DatabaseApp(root)
